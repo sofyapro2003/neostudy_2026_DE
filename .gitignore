@@ -1,0 +1,24 @@
+venv/
+.venv/
+ENV/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Файлы конфигурации с секретами
+config/config.json
+.env
+/config/config.json
