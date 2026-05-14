@@ -76,14 +76,13 @@ def load_data_to_table(df, table_name):
         with conn.cursor() as cur:
             try:
                 columns = ', '.join(df.columns.tolist())
-                for r in df:
-                    data = [tuple(row) for row in df.to_numpy()]
-                    placeholders = ', '.join(['%s'] * len(df.columns))
+                data = [tuple(row) for row in df.to_numpy()]
+                placeholders = ', '.join(['%s'] * len(df.columns))
 
-                    cur.executemany(f"""
-                                        INSERT INTO dm.{table_name}({columns})
-                                        VALUES ({placeholders})
-                                """, data)
+                cur.executemany(f"""
+                                    INSERT INTO dm.{table_name}({columns})
+                                    VALUES ({placeholders})
+                            """, data)
                 log_load_data(cur, f'Загрузка данных в таблицу {table_name}')
             except psycopg2.Error as e:
                 log_err_load_data(cur, f'Загрузка данных в таблицу {table_name}', e.pgcode, str(e))
